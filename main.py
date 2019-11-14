@@ -6,16 +6,23 @@ import PyQt5.QtGui as QtGui
 from random import randint
 from PyQt5 import uic
 from PyQt5.QtGui import QPainter, QColor
+from circles import Ui_MainWindow
 
 
-class Example(QMainWindow):
+class Example(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super().__init__()
-        uic.loadUi('circles.ui', self)
+        self.setupUi(self)
         self.pushButton.clicked.connect(self.run)
         self.x = self.y = self.d = 0
+        self.color1 = randint(0, 255)
+        self.color2 = randint(0, 255)
+        self.color3 = randint(0, 255)
 
     def run(self):
+        self.color1 = randint(0, 255)
+        self.color2 = randint(0, 255)
+        self.color3 = randint(0, 255)
         self.x = self.y = self.d = randint(1, 500)
         self.paintEvent(self.event)
 
@@ -26,7 +33,7 @@ class Example(QMainWindow):
         qp.end()
 
     def draw(self, qp):
-        qp.setBrush(QColor(255, 255, 0))
+        qp.setBrush(QColor(self.color1, self.color2, self.color3))
         qp.drawEllipse(self.x, self.y, self.d, self.d)
         self.update()
 
